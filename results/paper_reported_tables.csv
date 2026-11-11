@@ -1,0 +1,11 @@
+Table,Variant,GA,MLA,ED
+Table3,Full LogBatcher,0.972,0.895,0.969
+Table3,w/o partitioning,0.790,0.770,0.896
+Table3,w/o caching,0.830,0.803,0.935
+Table3,w/o batching,0.928,0.724,0.910
+Table4,DPP (default),0.972,0.895,0.969
+Table4,Random sampling,0.963,0.890,0.964
+Table4,Similarity sampling,0.937,0.831,0.953
+Table6,CodeLlama (7B),0.936,0.800,0.939
+Table6,Llama3 (70B),0.925,0.853,0.966
+Table6,GPT-3.5-Turbo,0.972,0.895,0.969

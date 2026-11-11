@@ -1,0 +1,25 @@
+{
+  "model": {
+    "experiment": "E6_claude-haiku-4.5",
+    "provider": "bedrock",
+    "model": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "label": "Claude Haiku 4.5 (Bedrock)"
+  },
+  "datasets": [
+    "HDFS",
+    "Spark",
+    "BGL",
+    "Linux",
+    "OpenStack",
+    "Mac"
+  ],
+  "variants": {
+    "DPP (default)": {},
+    "Random sampling": {
+      "logbatcher.sampler": "random"
+    },
+    "Similarity sampling": {
+      "logbatcher.sampler": "similarity"
+    }
+  }
+}

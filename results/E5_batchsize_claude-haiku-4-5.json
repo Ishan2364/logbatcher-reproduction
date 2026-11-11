@@ -1,0 +1,23 @@
+{
+  "model": {
+    "experiment": "E6_claude-haiku-4.5",
+    "provider": "bedrock",
+    "model": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "label": "Claude Haiku 4.5 (Bedrock)"
+  },
+  "datasets": [
+    "HDFS",
+    "Spark",
+    "BGL",
+    "Linux",
+    "OpenStack",
+    "Mac"
+  ],
+  "sizes": [
+    1,
+    5,
+    10,
+    15,
+    20
+  ]
+}

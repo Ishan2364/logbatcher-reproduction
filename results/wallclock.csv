@@ -1,0 +1,2 @@
+Experiment,Seconds,Source
+E1_logbatcher,192567,"final line of the original run's log; includes Groq free-tier rate-limit waits"

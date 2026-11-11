@@ -1,0 +1,4 @@
+Model,Provider,Datasets,GA,MLA,ED,LLM_calls,T_total,T_invoc,T_output,Cost_USD,Latency_per_call_s,Fallbacks
+gpt-oss-120b (Groq),groq,16,0.8826,0.8381,0.9659,1364,610392,447.5015,140149,0.1546,0.6605,37
+gpt-oss-20b (Groq),groq,16,0.9045,0.8057,0.9616,1354,601027,443.8900,134201,0.0753,2.9164,57
+Claude Haiku 4.5 (Bedrock),bedrock,16,0.8678,0.7646,0.9464,1224,427745,349.4649,56969,0.6556,1.0247,70

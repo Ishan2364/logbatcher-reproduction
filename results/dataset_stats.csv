@@ -1,0 +1,17 @@
+Dataset,Logs,Templates,EmptyContent,RawLinesParsed,RawContentMatch
+HDFS,2000,14,0,2000,1.0
+Hadoop,2000,114,0,2000,1.0
+Spark,2000,36,0,2000,1.0
+Zookeeper,2000,50,0,2000,1.0
+BGL,2000,120,0,2000,1.0
+HPC,2000,46,0,2000,1.0
+Thunderbird,2000,149,0,2000,1.0
+Windows,2000,50,0,2000,1.0
+Linux,2000,115,0,2000,0.9965
+Android,2000,158,0,2000,1.0
+HealthApp,2000,75,0,2000,0.9995
+Apache,2000,6,0,2000,1.0
+Proxifier,2000,11,0,2000,1.0
+OpenSSH,2000,26,0,2000,1.0
+OpenStack,2000,41,0,2000,1.0
+Mac,2000,341,0,2000,1.0

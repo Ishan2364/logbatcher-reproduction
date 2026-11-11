@@ -1,0 +1,246 @@
+{
+  "experiment": "E6_claude-haiku-4.5",
+  "saved_at": "2026-10-16 12:42:26",
+  "config": {
+    "paths": {
+      "data_dir": "data/loghub-2k",
+      "results_dir": "results",
+      "figures_dir": "figures",
+      "llm_cache": "cache/llm_cache.sqlite"
+    },
+    "datasets": {
+      "HDFS": {
+        "log_format": "<Date> <Time> <Pid> <Level> <Component>: <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "blk_-?\\d+",
+            "(\\d+\\.){3}\\d+(:\\d+)?"
+          ]
+        }
+      },
+      "Hadoop": {
+        "log_format": "<Date> <Time> <Level> \\[<Process>\\] <Component>: <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "(\\d+\\.){3}\\d+"
+          ]
+        }
+      },
+      "Spark": {
+        "log_format": "<Date> <Time> <Level> <Component>: <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "(\\d+\\.){3}\\d+",
+            "\\b[KGTM]?B\\b",
+            "([\\w-]+\\.){2,}[\\w-]+"
+          ]
+        }
+      },
+      "Zookeeper": {
+        "log_format": "<Date> <Time> - <Level>  \\[<Node>:<Component>@<Id>\\] - <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "(/|)(\\d+\\.){3}\\d+(:\\d+)?"
+          ]
+        }
+      },
+      "BGL": {
+        "log_format": "<Label> <Timestamp> <Date> <Node> <Time> <NodeRepeat> <Type> <Component> <Level> <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "core\\.\\d+"
+          ]
+        }
+      },
+      "HPC": {
+        "log_format": "<LogId> <Node> <Component> <State> <Time> <Flag> <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "=\\d+"
+          ]
+        }
+      },
+      "Thunderbird": {
+        "log_format": "<Label> <Timestamp> <Date> <User> <Month> <Day> <Time> <Location> <Component>(\\[<PID>\\])?: <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "(\\d+\\.){3}\\d+"
+          ]
+        }
+      },
+      "Windows": {
+        "log_format": "<Date> <Time>, <Level>                  <Component>    <Content>",
+        "drain": {
+          "st": 0.7,
+          "depth": 5,
+          "regex": [
+            "0x.*?\\s"
+          ]
+        }
+      },
+      "Linux": {
+        "log_format": "<Month> <Date> <Time> <Level> <Component>(\\[<PID>\\])?: <Content>",
+        "drain": {
+          "st": 0.39,
+          "depth": 6,
+          "regex": [
+            "(\\d+\\.){3}\\d+",
+            "\\d{2}:\\d{2}:\\d{2}"
+          ]
+        }
+      },
+      "Android": {
+        "log_format": "<Date> <Time>  <Pid>  <Tid> <Level> <Component>: <Content>",
+        "drain": {
+          "st": 0.2,
+          "depth": 6,
+          "regex": [
+            "(/[\\w-]+)+",
+            "([\\w-]+\\.){2,}[\\w-]+",
+            "\\b(\\-?\\+?\\d+)\\b|\\b0[Xx][a-fA-F\\d]+\\b|\\b[a-fA-F\\d]{4,}\\b"
+          ]
+        }
+      },
+      "HealthApp": {
+        "log_format": "<Time>\\|<Component>\\|<Pid>\\|<Content>",
+        "drain": {
+          "st": 0.2,
+          "depth": 4,
+          "regex": []
+        }
+      },
+      "Apache": {
+        "log_format": "\\[<Time>\\] \\[<Level>\\] <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 4,
+          "regex": [
+            "(\\d+\\.){3}\\d+"
+          ]
+        }
+      },
+      "Proxifier": {
+        "log_format": "\\[<Time>\\] <Program> - <Content>",
+        "drain": {
+          "st": 0.6,
+          "depth": 3,
+          "regex": [
+            "<\\d+\\ssec",
+            "([\\w-]+\\.)+[\\w-]+(:\\d+)?",
+            "\\d{2}:\\d{2}(:\\d{2})*",
+            "[KGTM]B"
+          ]
+        }
+      },
+      "OpenSSH": {
+        "log_format": "<Date> <Day> <Time> <Component> sshd\\[<Pid>\\]: <Content>",
+        "drain": {
+          "st": 0.6,
+          "depth": 5,
+          "regex": [
+            "(\\d+\\.){3}\\d+",
+            "([\\w-]+\\.){2,}[\\w-]+"
+          ]
+        }
+      },
+      "OpenStack": {
+        "log_format": "<Logrecord> <Date> <Time> <Pid> <Level> <Component> \\[<ADDR>\\] <Content>",
+        "drain": {
+          "st": 0.5,
+          "depth": 5,
+          "regex": [
+            "((\\d+\\.){3}\\d+,?)+",
+            "/.+?\\s",
+            "\\d+"
+          ]
+        }
+      },
+      "Mac": {
+        "log_format": "<Month>  <Date> <Time> <User> <Component>\\[<PID>\\]( \\(<Address>\\))?: <Content>",
+        "drain": {
+          "st": 0.7,
+          "depth": 6,
+          "regex": [
+            "([\\w-]+\\.){2,}[\\w-]+"
+          ]
+        }
+      }
+    },
+    "subset": [
+      "HDFS",
+      "Spark",
+      "BGL",
+      "Linux",
+      "OpenStack",
+      "Mac"
+    ],
+    "logbatcher": {
+      "use_partitioning": true,
+      "use_cache": true,
+      "use_batching": true,
+      "batch_size": 10,
+      "sampler": "dpp",
+      "seed": 0,
+      "dbscan": {
+        "eps": 0.5,
+        "min_samples": 5
+      },
+      "no_partition_chunk_size": 100,
+      "cache_length_check": true,
+      "match_mode": "strict_first"
+    },
+    "llm": {
+      "provider": "bedrock",
+      "model": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "temperature": 0,
+      "max_tokens": 1024,
+      "max_retries": 12,
+      "max_wait_seconds": 3600,
+      "aws_region": "us-east-2",
+      "pricing": {
+        "openai/gpt-oss-120b": [
+          0.15,
+          0.6
+        ],
+        "openai/gpt-oss-20b": [
+          0.075,
+          0.3
+        ],
+        "qwen/qwen3.8-27b": [
+          null,
+          null
+        ],
+        "allam-2-7b": [
+          null,
+          null
+        ],
+        "us.anthropic.claude-haiku-4-5-20251001-v1:0": [
+          1.0,
+          5.0
+        ]
+      },
+      "model_params": {
+        "openai/gpt-oss-120b": {
+          "reasoning_effort": "low"
+        },
+        "openai/gpt-oss-20b": {
+          "reasoning_effort": "low"
+        }
+      }
+    }
+  }
+}

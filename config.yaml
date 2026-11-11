@@ -1,0 +1,96 @@
+# LogBatcher reproduction: every setting used by the code and the paper lives here.
+
+paths:
+  data_dir: data/loghub-2k          # Loghub-2k, Khan et al. (2022) corrected labels, from the LogBatcher authors' repo
+  results_dir: results
+  figures_dir: figures
+  llm_cache: cache/llm_cache.sqlite # raw LLM responses keyed by request hash
+
+# Datasets: log format (header vs. Content) and the standard loghub Drain benchmark settings.
+datasets:
+  HDFS:
+    log_format: '<Date> <Time> <Pid> <Level> <Component>: <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['blk_-?\d+', '(\d+\.){3}\d+(:\d+)?']}
+  Hadoop:
+    log_format: '<Date> <Time> <Level> \[<Process>\] <Component>: <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['(\d+\.){3}\d+']}
+  Spark:
+    log_format: '<Date> <Time> <Level> <Component>: <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['(\d+\.){3}\d+', '\b[KGTM]?B\b', '([\w-]+\.){2,}[\w-]+']}
+  Zookeeper:
+    log_format: '<Date> <Time> - <Level>  \[<Node>:<Component>@<Id>\] - <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['(/|)(\d+\.){3}\d+(:\d+)?']}
+  BGL:
+    log_format: '<Label> <Timestamp> <Date> <Node> <Time> <NodeRepeat> <Type> <Component> <Level> <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['core\.\d+']}
+  HPC:
+    log_format: '<LogId> <Node> <Component> <State> <Time> <Flag> <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['=\d+']}
+  Thunderbird:
+    log_format: '<Label> <Timestamp> <Date> <User> <Month> <Day> <Time> <Location> <Component>(\[<PID>\])?: <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['(\d+\.){3}\d+']}
+  Windows:
+    log_format: '<Date> <Time>, <Level>                  <Component>    <Content>'
+    drain: {st: 0.7, depth: 5, regex: ['0x.*?\s']}
+  Linux:
+    log_format: '<Month> <Date> <Time> <Level> <Component>(\[<PID>\])?: <Content>'
+    drain: {st: 0.39, depth: 6, regex: ['(\d+\.){3}\d+', '\d{2}:\d{2}:\d{2}']}
+  Android:
+    log_format: '<Date> <Time>  <Pid>  <Tid> <Level> <Component>: <Content>'
+    drain: {st: 0.2, depth: 6, regex: ['(/[\w-]+)+', '([\w-]+\.){2,}[\w-]+', '\b(\-?\+?\d+)\b|\b0[Xx][a-fA-F\d]+\b|\b[a-fA-F\d]{4,}\b']}
+  HealthApp:
+    log_format: '<Time>\|<Component>\|<Pid>\|<Content>'
+    drain: {st: 0.2, depth: 4, regex: []}
+  Apache:
+    log_format: '\[<Time>\] \[<Level>\] <Content>'
+    drain: {st: 0.5, depth: 4, regex: ['(\d+\.){3}\d+']}
+  Proxifier:
+    log_format: '\[<Time>\] <Program> - <Content>'
+    drain: {st: 0.6, depth: 3, regex: ['<\d+\ssec', '([\w-]+\.)+[\w-]+(:\d+)?', '\d{2}:\d{2}(:\d{2})*', '[KGTM]B']}
+  OpenSSH:
+    log_format: '<Date> <Day> <Time> <Component> sshd\[<Pid>\]: <Content>'
+    drain: {st: 0.6, depth: 5, regex: ['(\d+\.){3}\d+', '([\w-]+\.){2,}[\w-]+']}
+  OpenStack:
+    log_format: '<Logrecord> <Date> <Time> <Pid> <Level> <Component> \[<ADDR>\] <Content>'
+    drain: {st: 0.5, depth: 5, regex: ['((\d+\.){3}\d+,?)+', '/.+?\s', '\d+']}
+  Mac:
+    log_format: '<Month>  <Date> <Time> <User> <Component>\[<PID>\]( \(<Address>\))?: <Content>'
+    drain: {st: 0.7, depth: 6, regex: ['([\w-]+\.){2,}[\w-]+']}
+
+# Diverse subset used for E3-E5 when the token budget is tight (plan, Phase 5).
+subset: [HDFS, Spark, BGL, Linux, OpenStack, Mac]
+
+logbatcher:
+  use_partitioning: true
+  use_cache: true
+  use_batching: true          # false is the same as batch_size = 1
+  batch_size: 10
+  sampler: dpp                # dpp | random | similarity | farthest
+  seed: 0
+  dbscan: {eps: 0.5, min_samples: 5, metric: cosine}   # paper gives eps/min_samples only; authors' code uses euclidean
+  no_partition_chunk_size: 100   # w/o partitioning: consecutive fixed-size chunks (time windows)
+  cache_length_check: true       # cache hit also requires the same token count as the reference log
+  match_mode: strict_first       # strict_first | loose | paper  (see src/matcher.py)
+  variability_check: false       # extension: undo <*> that capture the same word in every batch log
+  extended_rules: false          # sensitivity test: three extra template rules from the authors' public code
+
+llm:
+  provider: groq              # groq | bedrock | mock_oracle | mock_mask
+  model: openai/gpt-oss-120b  # chat models on this Groq account (2026-10-16): gpt-oss-120b, gpt-oss-20b, qwen3.8-27b, allam-2-7b
+  temperature: 0
+  max_tokens: 1024            # includes gpt-oss reasoning tokens
+  max_retries: 12
+  max_wait_seconds: 900       # longer waits (e.g. daily token cap) abort the run; re-run resumes from cache
+  aws_region: us-east-2       # Bedrock region (bedrock provider only)
+  api_key_env: GROQ_API_KEY   # which .env variable holds the Groq key (e.g. GROQ_API_KEY_2 for a second account)
+  # USD per 1M tokens (input, output). Groq prices checked on console.groq.com/docs/models, 2026-10-18.
+  pricing:
+    openai/gpt-oss-120b: [0.15, 0.60]
+    openai/gpt-oss-20b: [0.075, 0.30]
+    qwen/qwen3.8-27b: [null, null]
+    allam-2-7b: [null, null]
+    us.anthropic.claude-haiku-4-5-20251001-v1:0: [1.00, 5.00]   # Anthropic list price (2026-10); Bedrock rate assumed equal, not verified
+  # Extra request parameters per model (gpt-oss reasons before answering; keep that short).
+  model_params:
+    openai/gpt-oss-120b: {reasoning_effort: low}
+    openai/gpt-oss-20b: {reasoning_effort: low}

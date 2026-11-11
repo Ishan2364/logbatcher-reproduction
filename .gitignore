@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+cache/*-wal
+cache/*-shm
+.pytest_cache/
+.DS_Store
+logs/
+paper/generated/plain_text.txt
+paper/logbatcher_paper_overleaf.zip

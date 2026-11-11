@@ -1,0 +1,132 @@
+{
+  "experiment": "drain3_pp",
+  "saved_at": "2026-10-16 11:40:01",
+  "config": {
+    "impl": "drain3",
+    "postprocess": true,
+    "drain_settings": {
+      "HDFS": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "blk_-?\\d+",
+          "(\\d+\\.){3}\\d+(:\\d+)?"
+        ]
+      },
+      "Hadoop": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "(\\d+\\.){3}\\d+"
+        ]
+      },
+      "Spark": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "(\\d+\\.){3}\\d+",
+          "\\b[KGTM]?B\\b",
+          "([\\w-]+\\.){2,}[\\w-]+"
+        ]
+      },
+      "Zookeeper": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "(/|)(\\d+\\.){3}\\d+(:\\d+)?"
+        ]
+      },
+      "BGL": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "core\\.\\d+"
+        ]
+      },
+      "HPC": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "=\\d+"
+        ]
+      },
+      "Thunderbird": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "(\\d+\\.){3}\\d+"
+        ]
+      },
+      "Windows": {
+        "st": 0.7,
+        "depth": 5,
+        "regex": [
+          "0x.*?\\s"
+        ]
+      },
+      "Linux": {
+        "st": 0.39,
+        "depth": 6,
+        "regex": [
+          "(\\d+\\.){3}\\d+",
+          "\\d{2}:\\d{2}:\\d{2}"
+        ]
+      },
+      "Android": {
+        "st": 0.2,
+        "depth": 6,
+        "regex": [
+          "(/[\\w-]+)+",
+          "([\\w-]+\\.){2,}[\\w-]+",
+          "\\b(\\-?\\+?\\d+)\\b|\\b0[Xx][a-fA-F\\d]+\\b|\\b[a-fA-F\\d]{4,}\\b"
+        ]
+      },
+      "HealthApp": {
+        "st": 0.2,
+        "depth": 4,
+        "regex": []
+      },
+      "Apache": {
+        "st": 0.5,
+        "depth": 4,
+        "regex": [
+          "(\\d+\\.){3}\\d+"
+        ]
+      },
+      "Proxifier": {
+        "st": 0.6,
+        "depth": 3,
+        "regex": [
+          "<\\d+\\ssec",
+          "([\\w-]+\\.)+[\\w-]+(:\\d+)?",
+          "\\d{2}:\\d{2}(:\\d{2})*",
+          "[KGTM]B"
+        ]
+      },
+      "OpenSSH": {
+        "st": 0.6,
+        "depth": 5,
+        "regex": [
+          "(\\d+\\.){3}\\d+",
+          "([\\w-]+\\.){2,}[\\w-]+"
+        ]
+      },
+      "OpenStack": {
+        "st": 0.5,
+        "depth": 5,
+        "regex": [
+          "((\\d+\\.){3}\\d+,?)+",
+          "/.+?\\s",
+          "\\d+"
+        ]
+      },
+      "Mac": {
+        "st": 0.7,
+        "depth": 6,
+        "regex": [
+          "([\\w-]+\\.){2,}[\\w-]+"
+        ]
+      }
+    }
+  }
+}

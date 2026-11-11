@@ -1,0 +1,28 @@
+{
+  "model": {
+    "experiment": "E6_claude-haiku-4.5",
+    "provider": "bedrock",
+    "model": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "label": "Claude Haiku 4.5 (Bedrock)"
+  },
+  "datasets": [
+    "HDFS",
+    "Spark",
+    "BGL",
+    "Linux",
+    "OpenStack",
+    "Mac"
+  ],
+  "variants": {
+    "Full LogBatcher": {},
+    "w/o partitioning": {
+      "logbatcher.use_partitioning": false
+    },
+    "w/o caching": {
+      "logbatcher.use_cache": false
+    },
+    "w/o batching": {
+      "logbatcher.use_batching": false
+    }
+  }
+}

@@ -1,0 +1,3 @@
+Dataset,GA,MLA,ED,PredTemplates,TrueTemplates,LLM_calls,T_total,T_invoc,T_input,T_output,T_total_tiktoken,T_invoc_tiktoken,Tokens_billed_this_run,LLM_latency_s,pruned_requeues,cache_hit_lines,fallbacks,initial_clusters,seconds
+HDFS,0.8530,0.8530,0.9547,13.0000,14.0000,14.0000,14123.0000,1008.8000,11143.0000,2980.0000,10500.0000,750.0000,0.0000,14.0000,5.0000,0.0000,0.0000,9.0000,0.0500
+Average,0.8530,0.8530,0.9547,13.0000,14.0000,14.0000,14123.0000,1008.8000,11143.0000,2980.0000,10500.0000,750.0000,0.0000,14.0000,5.0000,0.0000,0.0000,9.0000,0.0500
